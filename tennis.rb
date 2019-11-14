@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 class TennisGame1
-  def initialize(player1Name, player2Name)
-    @player1Name = player1Name
-    @player2Name = player2Name
+  def initialize(_player1Name, _player2Name)
     @p1points = 0
     @p2points = 0
   end
