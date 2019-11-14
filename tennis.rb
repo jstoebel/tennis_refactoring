@@ -35,12 +35,12 @@ class TennisGame1
   end
 
   def end_game_score
-    minusResult = @p1points - @p2points
-    if minusResult == 1
+    player1_lead = @p1points - @p2points
+    if player1_lead == 1
       'Advantage player1'
-    elsif minusResult == -1
+    elsif player1_lead == -1
       'Advantage player2'
-    elsif minusResult >= 2
+    elsif player1_lead >= 2
       'Win for player1'
     else
       'Win for player2'
