@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 class TennisGame1
-  def initialize(_player1Name, _player2Name)
+  def initialize(_player1_name, _player2_name)
     @p1points = 0
     @p2points = 0
   end
 
-  def won_point(playerName)
-    if playerName == 'player1'
+  def won_point(player_name)
+    if player_name == 'player1'
       @p1points += 1
     else
       @p2points += 1
@@ -16,9 +16,9 @@ class TennisGame1
 
   def score
     if @p1points == @p2points
-      return tied_score
+      tied_score
     elsif (@p1points >= 4) || (@p2points >= 4)
-      return end_game_score
+      end_game_score
     else
       standard_score
     end
