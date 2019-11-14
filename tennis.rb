@@ -22,16 +22,7 @@ class TennisGame1
     if @p1points == @p2points
       return tied_score
     elsif (@p1points >= 4) || (@p2points >= 4)
-      minusResult = @p1points - @p2points
-      result = if minusResult == 1
-                 'Advantage player1'
-               elsif minusResult == -1
-                 'Advantage player2'
-               elsif minusResult >= 2
-                 'Win for player1'
-               else
-                 'Win for player2'
-               end
+      return end_game_score
     else
       (1...3).each do |i|
         if i == 1
@@ -60,6 +51,19 @@ class TennisGame1
       1 => 'Fifteen-All',
       2 => 'Thirty-All'
     }.fetch(@p1points, 'Deuce')
+  end
+
+  def end_game_score
+    minusResult = @p1points - @p2points
+    if minusResult == 1
+      'Advantage player1'
+    elsif minusResult == -1
+      'Advantage player2'
+    elsif minusResult >= 2
+      'Win for player1'
+    else
+      'Win for player2'
+    end
   end
 end
 
