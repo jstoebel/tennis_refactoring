@@ -80,10 +80,7 @@ class TennisGame2
 
   def score
     result = ''
-    if (@p1points == @p2points) && (@player1.score < 3)
-      # result = 'Love' if @p1points == 0
-      # result = 'Fifteen' if @p1points == 1
-      # result = 'Thirty' if @p1points == 2
+    if tied_game? && @player1.score < 3
       result += @player1.tennis_score
       result += '-All'
     end
@@ -156,6 +153,10 @@ class TennisGame2
   def p2Score
     @p2points += 1
     @player2.award_point
+  end
+
+  def tied_game?
+    @player1.score == @player2.score
   end
 
   class Player
