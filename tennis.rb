@@ -77,12 +77,8 @@ class TennisGame2
 
   def score
     result = ''
-    if (@p1points == @p2points) && (@p1points < 3)
-      result = 'Love' if @p1points == 0
-      result = 'Fifteen' if @p1points == 1
-      result = 'Thirty' if @p1points == 2
-      result += '-All'
-    end
+    return tied_mid_game_score if tied_mid_game?
+    
     result = 'Deuce' if (@p1points == @p2points) && (@p1points > 2)
 
     p1res = ''
@@ -150,6 +146,25 @@ class TennisGame2
 
   def p2Score
     @p2points += 1
+  end
+
+  private
+
+  def tied_mid_game?
+    (@p1points == @p2points) && (@p1points < 3)
+  end
+
+  def tied_mid_game_score
+    "#{tennis_score(@p1points)}-All"
+  end
+
+  def tennis_score(numeric_score)
+    {
+      0 => 'Love',
+      1 => 'Fifteen',
+      2 => 'Thirty',
+      3 => 'Forty'
+    }[numeric_score]
   end
 end
 
