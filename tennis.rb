@@ -65,6 +65,9 @@ class TennisGame2
     @player2Name = player2Name
     @p1points = 0
     @p2points = 0
+
+    @player1 = Player.new player1Name
+    @player2 = Player.new player2Name
   end
 
   def won_point(playerName)
@@ -77,10 +80,11 @@ class TennisGame2
 
   def score
     result = ''
-    if (@p1points == @p2points) && (@p1points < 3)
-      result = 'Love' if @p1points == 0
-      result = 'Fifteen' if @p1points == 1
-      result = 'Thirty' if @p1points == 2
+    if (@p1points == @p2points) && (@player1.score < 3)
+      # result = 'Love' if @p1points == 0
+      # result = 'Fifteen' if @p1points == 1
+      # result = 'Thirty' if @p1points == 2
+      result += @player1.tennis_score
       result += '-All'
     end
     result = 'Deuce' if (@p1points == @p2points) && (@p1points > 2)
@@ -146,10 +150,37 @@ class TennisGame2
 
   def p1Score
     @p1points += 1
+    @player1.award_point
   end
 
   def p2Score
     @p2points += 1
+    @player2.award_point
+  end
+
+  class Player
+    attr_reader :score, :name
+    def initialize(name)
+      @name = name
+      @score = 0
+    end
+
+    def award
+      @score += 1
+    end
+
+    def tennis_score
+      {
+        0 => 'Love',
+        1 => 'Fifteen',
+        2 => 'Thirty',
+        3 => 'Forty'
+      }[@score]
+    end
+
+    def award_point
+      @score += 1
+    end
   end
 end
 
