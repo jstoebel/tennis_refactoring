@@ -50,23 +50,13 @@ class TennisGame1
   end
 
   def standard_score
-    result = ''
-    tempScore = 0
-    (1...3).each do |i|
-      if i == 1
-        tempScore = @p1points
-      else
-        result += '-'
-        tempScore = @p2points
-      end
-      result += {
-        0 => 'Love',
-        1 => 'Fifteen',
-        2 => 'Thirty',
-        3 => 'Forty'
-      }[tempScore]
-    end
-    result
+    scores = {
+      0 => 'Love',
+      1 => 'Fifteen',
+      2 => 'Thirty',
+      3 => 'Forty'
+    }
+    [@p1points, @p2points].map { |score| scores[score] }.join('-')
   end
 end
 
