@@ -29,11 +29,9 @@ class TennisGame1
   private
 
   def tied_score
-    {
-      0 => 'Love-All',
-      1 => 'Fifteen-All',
-      2 => 'Thirty-All'
-    }.fetch(@p1points, 'Deuce')
+    return 'Deuce' if @p1points > 2
+
+    "#{tennis_score(@p1points)}-All"
   end
 
   def end_game_score
@@ -50,13 +48,16 @@ class TennisGame1
   end
 
   def standard_score
-    scores = {
+    [@p1points, @p2points].map { |n| tennis_score(n) }.join('-')
+  end
+
+  def tennis_score(numeric_score)
+    {
       0 => 'Love',
       1 => 'Fifteen',
       2 => 'Thirty',
       3 => 'Forty'
-    }
-    [@p1points, @p2points].map { |score| scores[score] }.join('-')
+    }[numeric_score]
   end
 end
 
