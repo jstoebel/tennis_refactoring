@@ -80,9 +80,9 @@ class TennisGame2
 
   def score
     result = ''
-    
+
     return "#{@player1.tennis_score}-All" if tied_game? && @player1.score < 3
-    result = 'Deuce' if (@p1points == @p2points) && (@p1points > 2)
+    return 'Deuce' if (@p1points == @p2points) && (@p1points > 2)
 
     p1res = ''
     p2res = ''
