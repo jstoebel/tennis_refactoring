@@ -80,9 +80,7 @@ class TennisGame2
 
   def score
     if tied_game?
-      return 'Deuce' if @player1.score > 2
-
-      return "#{@player1.tennis_score}-All"
+      tied_game_score
     elsif mid_game?
       return mid_game_score
     elsif late_game?
@@ -117,6 +115,12 @@ class TennisGame2
 
   def tied_game?
     @player1.score == @player2.score
+  end
+
+  def tied_game_score
+    return 'Deuce' if @player1.score > 2
+
+    "#{@player1.tennis_score}-All"
   end
 
   # if niether player has more than 3 points
