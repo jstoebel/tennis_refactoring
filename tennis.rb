@@ -138,15 +138,15 @@ class TennisGame2
   end
 
   def late_game_score
-    return 'Advantage ' + @player1.name if @player1 > @player2
+    _follower, leader = follower_leader
 
-    'Advantage ' + @player2.name
+    "Advantage #{leader.name}"
   end
 
   # somebody has won
   def end_game?
-    follower, leader = leader_follower
-    leader >= 4 && leader - follower >= 2
+    follower, leader = follower_leader
+    leader.score >= 4 && leader.score - follower.score >= 2
   end
 
   def end_game_score
@@ -159,8 +159,8 @@ class TennisGame2
     result
   end
 
-  def leader_follower
-    [@player1.score, @player2.score].sort
+  def follower_leader
+    [@player1, @player2].sort
   end
 
   class Player
@@ -193,6 +193,12 @@ class TennisGame2
 
     def >(other)
       score > other.score
+    end
+
+    def <=>(other)
+      return -1 if score < other.score
+      return 0 if score == other.score
+      return 1 if score > other.score
     end
   end
 end
