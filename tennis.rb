@@ -61,8 +61,6 @@ end
 
 class TennisGame2
   def initialize(player1Name, player2Name)
-    @player1Name = player1Name
-    @player2Name = player2Name
     @p1points = 0
     @p2points = 0
 
@@ -71,7 +69,7 @@ class TennisGame2
   end
 
   def won_point(playerName)
-    if playerName == @player1Name
+    if playerName == @player1.name
       p1Score
     else
       p2Score
@@ -82,12 +80,11 @@ class TennisGame2
     if tied_game?
       tied_game_score
     elsif mid_game?
-      return mid_game_score
+      mid_game_score
     elsif late_game?
-      return late_game_score
+      late_game_score
     else
-      return end_game_score
-      # winner
+      end_game_score
     end
   end
 
@@ -150,13 +147,9 @@ class TennisGame2
   end
 
   def end_game_score
-    if (@p1points >= 4) && (@p2points >= 0) && ((@p1points - @p2points) >= 2)
-      result = 'Win for ' + @player1Name
-    end
-    if (@p2points >= 4) && (@p1points >= 0) && ((@p2points - @p1points) >= 2)
-      result = 'Win for ' + @player2Name
-    end
-    result
+    _follower, leader = follower_leader
+
+    "Win for #{leader.name}"
   end
 
   def follower_leader
