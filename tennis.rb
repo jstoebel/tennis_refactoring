@@ -60,13 +60,13 @@ class TennisGame1
 end
 
 class TennisGame2
-  def initialize(player1Name, player2Name)
-    @player1 = Player.new player1Name
-    @player2 = Player.new player2Name
+  def initialize(player1_name, player2_name)
+    @player1 = Player.new player1_name
+    @player2 = Player.new player2_name
   end
 
-  def won_point(playerName)
-    if playerName == @player1.name
+  def won_point(player_name)
+    if player_name == @player1.name
       @player1.award
     else
       @player2.award
@@ -149,10 +149,6 @@ class TennisGame2
         2 => 'Thirty',
         3 => 'Forty'
       }[@score]
-    end
-
-    def award_point
-      @score += 1
     end
 
     def <(other)
