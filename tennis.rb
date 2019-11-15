@@ -61,18 +61,15 @@ end
 
 class TennisGame2
   def initialize(player1Name, player2Name)
-    @p1points = 0
-    @p2points = 0
-
     @player1 = Player.new player1Name
     @player2 = Player.new player2Name
   end
 
   def won_point(playerName)
     if playerName == @player1.name
-      p1Score
+      @player1.award
     else
-      p2Score
+      @player2.award
     end
   end
 
@@ -86,28 +83,6 @@ class TennisGame2
     else
       end_game_score
     end
-  end
-
-  def setp1Score(number)
-    (0..number).each do |_i|
-      p1Score
-    end
-  end
-
-  def setp2Score(number)
-    (0..number).each do |_i|
-      p2Score
-    end
-  end
-
-  def p1Score
-    @p1points += 1
-    @player1.award_point
-  end
-
-  def p2Score
-    @p2points += 1
-    @player2.award_point
   end
 
   def tied_game?
