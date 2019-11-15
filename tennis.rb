@@ -79,56 +79,18 @@ class TennisGame2
   end
 
   def score
-    result = ''
+    if tied_game?
+      return 'Deuce' if @player1.score > 2
 
-    return "#{@player1.tennis_score}-All" if tied_game? && @player1.score < 3
-    return 'Deuce' if (@p1points == @p2points) && (@p1points > 2)
-
-    p1res = ''
-    p2res = ''
-    if (@p1points > 0) && (@p2points == 0)
-      p1res = 'Fifteen' if @p1points == 1
-      p1res = 'Thirty' if @p1points == 2
-      p1res = 'Forty' if @p1points == 3
-      p2res = 'Love'
-      result = p1res + '-' + p2res
+      return "#{@player1.tennis_score}-All"
+    elsif mid_game?
+      return mid_game_score
+    elsif late_game?
+      return late_game_score
+    else
+      return end_game_score
+      # winner
     end
-    if (@p2points > 0) && (@p1points == 0)
-      p2res = 'Fifteen' if @p2points == 1
-      p2res = 'Thirty' if @p2points == 2
-      p2res = 'Forty' if @p2points == 3
-
-      p1res = 'Love'
-      result = p1res + '-' + p2res
-    end
-
-    if (@p1points > @p2points) && (@p1points < 4)
-      p1res = 'Thirty' if @p1points == 2
-      p1res = 'Forty' if @p1points == 3
-      p2res = 'Fifteen' if @p2points == 1
-      p2res = 'Thirty' if @p2points == 2
-      result = p1res + '-' + p2res
-    end
-    if (@p2points > @p1points) && (@p2points < 4)
-      p2res = 'Thirty' if @p2points == 2
-      p2res = 'Forty' if @p2points == 3
-      p1res = 'Fifteen' if @p1points == 1
-      p1res = 'Thirty' if @p1points == 2
-      result = p1res + '-' + p2res
-    end
-    if (@p1points > @p2points) && (@p2points >= 3)
-      result = 'Advantage ' + @player1Name
-    end
-    if (@p2points > @p1points) && (@p1points >= 3)
-      result = 'Advantage ' + @player2Name
-    end
-    if (@p1points >= 4) && (@p2points >= 0) && ((@p1points - @p2points) >= 2)
-      result = 'Win for ' + @player1Name
-    end
-    if (@p2points >= 4) && (@p1points >= 0) && ((@p2points - @p1points) >= 2)
-      result = 'Win for ' + @player2Name
-    end
-    result
   end
 
   def setp1Score(number)
@@ -155,6 +117,48 @@ class TennisGame2
 
   def tied_game?
     @player1.score == @player2.score
+  end
+
+  # if niether player has more than 3 points
+  def mid_game?
+    @player1.score <= 3 && @player2.score <= 3
+  end
+
+  def mid_game_score
+    [@player1.tennis_score, @player2.tennis_score].join('-')
+  end
+
+  # both platers have at least 3 points
+  def late_game?
+    @player1.score >= 3 && @player2.score >= 3 && !end_game?
+  end
+
+  def late_game_score
+    result = ''
+    if (@p1points > @p2points) && (@p2points >= 3)
+      result = 'Advantage ' + @player1Name
+    end
+    if (@p2points > @p1points) && (@p1points >= 3)
+      result = 'Advantage ' + @player2Name
+    end
+
+    result
+  end
+
+  # somebody has won
+  def end_game?
+    follower, leader = [@player1.score, @player2.score].sort
+    leader >= 4 && leader - follower >= 2
+  end
+
+  def end_game_score
+    if (@p1points >= 4) && (@p2points >= 0) && ((@p1points - @p2points) >= 2)
+      result = 'Win for ' + @player1Name
+    end
+    if (@p2points >= 4) && (@p1points >= 0) && ((@p2points - @p1points) >= 2)
+      result = 'Win for ' + @player2Name
+    end
+    result
   end
 
   class Player
